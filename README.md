@@ -8,8 +8,8 @@
 ## 快速开始
 
 ### 创建 Feishu Bot 应用
-
-https://open.feishu.cn/document/uQjL04CN/ukzM04SOzQjL5MDN
+文档
+[https://open.feishu.cn/document/uQjL04CN/ukzM04SOzQjL5MDN](https://open.feishu.cn/document/uQjL04CN/ukzM04SOzQjL5MDN)
 
 获得 xxx
 
@@ -37,6 +37,18 @@ pip install -r requirements.txt
 ### 测试对话
 
 ### 发布到企业内部使用
+
+### 开发
+修改程序，增加功能
+
+* 依赖 Node.js, npm
+
+```
+cd py
+# liveload script, auto restart app when modifications happens
+./dev.sh
+```
+
 
 ## References
 

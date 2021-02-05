@@ -1,15 +1,49 @@
 #!/usr/bin/env python
 # --coding:utf-8--
 
+__copyright__ = "Copyright (c) 2017 . All Rights Reserved"
+__author__ = "Hai Liang Wang"
+__date__ = "2017-10-16:14:13:24"
+
+import os
+
+curdir = os.path.dirname(os.path.abspath(__file__))
+
+# Environment Variables
+ENVIRON = os.environ.copy()
+
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from os import path
 import json
-from urllib import request, parse
+from urllib import request
+from chatopera import Chatbot
 
+# load hyper params
+APP_ID = os.getenv("APP_ID", "").rstrip()
+PORT = int(os.getenv("PORT", 8000))
+APP_SECRET = os.getenv("APP_SECRET", "").rstrip()
+APP_VERIFICATION_TOKEN = os.getenv("APP_VERIFICATION_TOKEN", "").rstrip()
+CHATOPERA_CLIENT_ID = os.getenv("CHATOPERA_CLIENT_ID", "").rstrip()
+CHATOPERA_SECRET = os.getenv("CHATOPERA_SECRET", "").rstrip()
+CHATOPERA_BOT_PROVIDER = os.getenv("CHATOPERA_BOT_PROVIDER", "https://bot.chatopera.com").rstrip()
 
-APP_ID = "cli_XXXX"
-APP_SECRET = "XXXX"
-APP_VERIFICATION_TOKEN = "XXXX"
+# validate values in ENV
+if "" in [APP_ID, APP_SECRET, APP_VERIFICATION_TOKEN, CHATOPERA_CLIENT_ID, CHATOPERA_SECRET]:
+    [print("%s=%s" % (x[1], x[0])) for x in
+     [[APP_ID, "APP_ID"], [APP_SECRET, "APP_SECRET"], [APP_VERIFICATION_TOKEN, "APP_VERIFICATION_TOKEN"],
+      [CHATOPERA_CLIENT_ID, "CHATOPERA_CLIENT_ID"], [CHATOPERA_SECRET, "CHATOPERA_SECRET"]] if not x[0]]
+    raise BaseException("Invalid params, `None` is not allowed for param value")
+
+print("run app with CHATOPERA_BOT_PROVIDER %s, CHATOPERA_CLIENT_ID %s, APP_ID %s" % (
+    CHATOPERA_BOT_PROVIDER, CHATOPERA_CLIENT_ID, APP_ID))
+
+bot = Chatbot(CHATOPERA_CLIENT_ID, CHATOPERA_SECRET, )
+bot_info = bot.command("GET", "/")
+print("bot info: %s" % bot_info)
+if "rc" in bot_info and bot_info["rc"] == 0:
+    pass
+else:
+    raise BaseException("Invalid bot info, does bot exist in your bot provider? " + CHATOPERA_BOT_PROVIDER)
+
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
@@ -59,7 +93,18 @@ class RequestHandler(BaseHTTPRequestHandler):
             return
 
         # 机器人 echo 收到的消息
-        self.send_message(access_token, event.get("open_id"), event.get("text"))
+        query = event.get("text")
+        from_user_id = event.get("open_id")
+        result = bot.command("POST", "/conversation/query", dict({
+            "fromUserId": from_user_id,
+            "textMessage": query,
+            "faqBestReplyThreshold": 0.8,
+            "faqSuggReplyThreshold": 0.5
+        }))
+
+        print("bot result: %s" % json.dumps(result, ensure_ascii=False, indent=2))
+
+        self.send_message(access_token, from_user_id, result["data"]["string"])
         self.response("")
         return
 
@@ -72,7 +117,7 @@ class RequestHandler(BaseHTTPRequestHandler):
     def get_tenant_access_token(self):
         url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal/"
         headers = {
-            "Content-Type" : "application/json"
+            "Content-Type": "application/json"
         }
         req_body = {
             "app_id": APP_ID,
@@ -124,12 +169,13 @@ class RequestHandler(BaseHTTPRequestHandler):
         if code != 0:
             print("send message error, code = ", code, ", msg =", rsp_dict.get("msg", ""))
 
+
 def run():
-    port = 8000
-    server_address = ('', port)
+    server_address = ('', PORT)
     httpd = HTTPServer(server_address, RequestHandler)
-    print("start.....")
+    print("server is started, listen on port %s ..." % PORT)
     httpd.serve_forever()
+
 
 if __name__ == '__main__':
     run()
