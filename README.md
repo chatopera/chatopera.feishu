@@ -163,6 +163,12 @@ cd app
 - [Python SDK Docs](https://github.com/chatopera/chatopera-py-sdk/)
 - [Chatopera 机器人平台系统集成文档](https://docs.chatopera.com/products/chatbot-platform/integration/index.html)
 
+## 获得帮助与支持
+
+[Chatopera 文档中心](https://docs.chatopera.com/)
+
+[Create Tickets](https://github.com/chatopera/chatopera.feishu/issues)
+
 ## References
 
 [Create a custom app on Feish](https://open.feishu.cn/document/uQjL04CN/ukzM04SOzQjL5MDN)
