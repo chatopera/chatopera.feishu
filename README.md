@@ -1,3 +1,5 @@
+<img src="./assets/12.png" width = "600" />
+
 # Chatopera 飞书 Custom App
 
 通过 Feishu 开放平台和 Chatopera 机器人平台上线企业聊天机器人服务。
