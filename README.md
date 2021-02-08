@@ -13,6 +13,22 @@
 
 ![](./assets/15.png)
 
+功能 -
+
+```
+帮助
+list projects
+create issue 项目 标题
+close issue 项目 #序号
+reopen issue 项目 #序号
+示例：
+   list projects
+   create issue cskefu 优化春松客服 ME 渠道管理创建表单
+   close issue cskefu #1120
+   reopen issue cskefu #1120
+详细介绍(超链接)
+```
+
 该示例程序的上线过程，请详细阅读下文获得。
 
 ## 快速开始
@@ -142,7 +158,13 @@ ngrok http 8000
 
 创建新版本，并提交，此时因为企业内部审核，会自动通过。
 
-在飞书客户端，Workspace 中搜索并激活机器人，进入对话界面。
+在飞书客户端，Workspace 中搜索并激活机器人。
+
+<p align="center">
+    <img src="./assets/16.png" width = "500" />
+</p>
+
+进入对话界面。
 
 <p align="center">
     <img src="./assets/7.png" width = "500" />
@@ -185,14 +207,7 @@ cd feishu/app
 
 本项目提供面向 DevOps 的助手机器人，和 GitLab 集成，参考 [README.md](./extras/README.md)。
 
-### 进阶阅读
-
-- [Chatopera 机器人平台文档中心](https://docs.chatopera.com/index.html)
-- [示例程序](https://github.com/chatopera/chatbot-samples)
-- [视频教程](https://ke.qq.com/course/2994143)
-- [Deep Dive](https://ke.qq.com/course/2994143?taid=10884018361708511&tuin=6780672d)
-- [Python SDK Docs](https://github.com/chatopera/chatopera-py-sdk/)
-- [Chatopera 机器人平台系统集成文档](https://docs.chatopera.com/products/chatbot-platform/integration/index.html)
+Powered by [Chatopera 机器人平台](https://bot.chatopera.com/)。
 
 ## 获得帮助与支持
 
