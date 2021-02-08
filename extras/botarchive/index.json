@@ -1,0 +1,20 @@
+{
+  "name": "FeishuDevops",
+  "version": "1.0.0",
+  "primaryLanguage": "zh_CN",
+  "conversations": [
+    {
+      "name": "greetings",
+      "enabled": true
+    },
+    {
+      "name": "issues",
+      "enabled": true
+    }
+  ],
+  "config": {
+    "GITLAB_URL": "https://gitlab.chatopera.com",
+    "PRIVATE_TOKEN": "YOUR_PRIVATE_TOKEN",
+    "VALID_PROJECTS": "https://gitee.com/chatopera_admin/metadata/raw/master/gitlab_projects.json"
+  }
+}

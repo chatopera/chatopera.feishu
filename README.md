@@ -7,6 +7,14 @@
 - Feishu：高效率的协作办公软件
 - Chatopera 机器人平台：定制智能对话机器人的开发者平台
 
+## 示例程序
+
+集成 GitLab 实现项目的 Issue 管理。
+
+![](./assets/15.png)
+
+该示例程序的上线过程，请详细阅读下文获得。
+
 ## 快速开始
 
 以下【Feishu Bot 应用】是指[飞书开发者平台](https://open.feishu.cn/app)上的 Custom App，并且 Capability 为 【bot】。
@@ -173,7 +181,11 @@ cd feishu/app
 
 ### 增加对话能力
 
-接下来，根据文档定制您的 BOT 对话能力，管理对话，是 Chatopera 机器人平台最核心的功能：
+接下来，根据文档定制您的 BOT 对话能力，管理对话，是 Chatopera 机器人平台最核心的功能。
+
+本项目提供面向 DevOps 的助手机器人，和 GitLab 集成，参考 [README.md](./extras/README.md)。
+
+### 进阶阅读
 
 - [Chatopera 机器人平台文档中心](https://docs.chatopera.com/index.html)
 - [示例程序](https://github.com/chatopera/chatbot-samples)
