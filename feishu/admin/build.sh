@@ -21,6 +21,7 @@ docker build \
     --force-rm=true --tag $imagename:$GIT_COMMIT_SHORT .
 
 if [ $? -eq 0 ]; then
+    set -x
     docker tag $imagename:$GIT_COMMIT_SHORT $imagename:develop
 fi
 

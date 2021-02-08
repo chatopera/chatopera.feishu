@@ -19,7 +19,7 @@ from chatopera import Chatbot
 
 # load hyper params
 APP_ID = os.getenv("APP_ID", "").rstrip()
-PORT = int(os.getenv("PORT", 8000))
+PORT = int(os.getenv("PORT", 8991))
 APP_SECRET = os.getenv("APP_SECRET", "").rstrip()
 APP_VERIFICATION_TOKEN = os.getenv("APP_VERIFICATION_TOKEN", "").rstrip()
 CHATOPERA_CLIENT_ID = os.getenv("CHATOPERA_CLIENT_ID", "").rstrip()
@@ -50,7 +50,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         # 解析请求 body
         req_body = self.rfile.read(int(self.headers['content-length']))
         obj = json.loads(req_body.decode("utf-8"))
-        print(req_body)
+        print("do_POST receive body\n", json.dumps(obj, ensure_ascii=False, indent=2))
 
         # 校验 verification token 是否匹配，token 不匹配说明该回调并非来自开发平台
         token = obj.get("token", "")
@@ -69,6 +69,12 @@ class RequestHandler(BaseHTTPRequestHandler):
             if event.get("type", "") == "message":
                 self.handle_message(event)
                 return
+            elif event.get("type", "") == "remove_bot":
+                self.response("")
+                return
+            elif event.get("type", "") == "add_bot":
+                self.handle_message(event)
+                return
         return
 
     def handle_request_url_verify(self, post_obj):
@@ -81,7 +87,14 @@ class RequestHandler(BaseHTTPRequestHandler):
     def handle_message(self, event):
         # 此处只处理 text 类型消息，其他类型消息忽略
         msg_type = event.get("msg_type", "")
-        if msg_type != "text":
+        query_rw = None
+
+        if msg_type == "" and event.get("type", "") == "add_bot":
+            query_rw = "__kick_off_join_feishu_group"
+        elif msg_type == "text":
+            pass
+        else:
+            # 其他为不能理解的事件
             print("unknown msg_type =", msg_type)
             self.response("")
             return
@@ -93,8 +106,8 @@ class RequestHandler(BaseHTTPRequestHandler):
             return
 
         # 机器人 echo 收到的消息
-        query = event.get("text")
-        from_user_id = event.get("open_id")
+        query = query_rw if query_rw else event.get("text_without_at_bot").rstrip()
+        from_user_id = event.get("open_chat_id", event.get("open_id", ""))
         result = bot.command("POST", "/conversation/query", dict({
             "fromUserId": from_user_id,
             "textMessage": query,
@@ -104,7 +117,15 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         print("bot result: %s" % json.dumps(result, ensure_ascii=False, indent=2))
 
-        self.send_message(access_token, from_user_id, result["data"]["string"])
+        if result["data"]["string"] == "#silent#":
+            pass
+        elif result["data"]["string"] == "#params#" and isinstance(result["data"]["params"], dict):
+            self.send_message(access_token, event, result["data"]["params"])
+        elif isinstance(result["data"]["string"], str):
+            self.send_message(access_token, event, result["data"]["string"])
+        else:
+            print("[handle_message] unexpected bot result")
+
         self.response("")
         return
 
@@ -140,20 +161,55 @@ class RequestHandler(BaseHTTPRequestHandler):
             return ""
         return rsp_dict.get("tenant_access_token", "")
 
-    def send_message(self, token, open_id, text):
+    def send_message(self, token, event, payload):
         url = "https://open.feishu.cn/open-apis/message/v4/send/"
 
         headers = {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + token
         }
-        req_body = {
-            "open_id": open_id,
-            "msg_type": "text",
-            "content": {
-                "text": text
-            }
-        }
+
+        chat_type = event.get("chat_type", "")
+        chat_id = event.get("open_chat_id", "")
+        open_id = event.get("open_id", "")
+        payload_type = "dict" if isinstance(payload, dict) else "str"
+
+        req_body = dict()
+
+        # 加群通知 add_bot
+        if event.get("type", "add_bot"):
+            if chat_id and payload_type == "dict":
+                payload["chat_id"] = chat_id
+            elif chat_id and payload_type == "str":
+                req_body["chat_id"] = chat_id
+            elif open_id and payload_type == "dict":
+                payload["open_id"] = open_id
+            elif open_id and payload_type == "str":
+                req_body["open_id"] = open_id
+        else:
+            # 群聊或私聊
+            if chat_type == "group" and payload_type == "dict":
+                payload["chat_id"] = chat_id
+            elif chat_type == "group" and payload_type == "str":
+                req_body["chat_id"] = chat_id
+            elif chat_type == "private" and payload_type == "dict":
+                payload["open_id"] = open_id
+            elif chat_type == "private" and payload_type == "str":
+                req_body["open_id"] = open_id
+
+
+
+        if payload_type == "str":
+            # 文本
+            req_body["msg_type"] = "text"
+            req_body["content"] = {
+                    "text": payload
+                }
+        elif payload_type == "dict":
+            req_body = payload
+        else:
+            print("[send_message] Error payload", payload)
+            pass
 
         data = bytes(json.dumps(req_body), encoding='utf8')
         req = request.Request(url=url, data=data, headers=headers, method='POST')
