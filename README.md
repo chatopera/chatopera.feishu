@@ -56,7 +56,7 @@
 复制配置文件示例。
 
 ```
-cd app
+cd feishu/app
 cp sample.env .env
 vi .env # 使用文本编辑器编辑 .env 文件
 ```
@@ -82,14 +82,14 @@ vi .env # 使用文本编辑器编辑 .env 文件
 安装 Python 依赖
 
 ```bash
-cd app
+cd feishu/app
 pip install -r requirements.txt
 ```
 
 ### 启动服务
 
 ```bash
-cd app
+cd feishu/app
 ./serve.sh
 ```
 
@@ -140,21 +140,38 @@ ngrok http 8000
     <img src="./assets/7.png" width = "500" />
 </p>
 
-### 开发
+## 使用 Docker 方式运行程序
 
-1）修改程序，增加功能
+### 构建 Docker 镜像
+
+```
+cd 根目录/feishu
+./admin/build.sh
+```
+
+### 运行服务
+
+```
+cd 根目录
+cp sample.env .env # 修改 .env 文件，配置变量
+docker-compose up -d
+```
+
+## 开发
+
+### 修改程序，增加功能
 
 建议安装 Node.js 和 npm，然后可使用下面脚本自动重启。
 
 ```
-cd app
+cd feishu/app
 # liveload script, auto restart app when modifications happens
 ./dev.sh
 ```
 
 每次重启后，可能会延迟 20s 生效，因为每次重启会和 Feishu 中间重新做安全校验。
 
-2）增加对话能力
+### 增加对话能力
 
 接下来，根据文档定制您的 BOT 对话能力，管理对话，是 Chatopera 机器人平台最核心的功能：
 

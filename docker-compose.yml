@@ -1,0 +1,16 @@
+version: "3"
+services:
+  feishu:
+    image: "chatopera/feishu:develop"
+    restart: always
+    ports:
+      - "8991:8991"
+    volumes:
+      - ./feishu/data:/data
+    environment:
+      - PORT=8991
+      - APP_ID=${APP_ID:-PLACEHOLDER}
+      - APP_SECRET=${APP_SECRET:-PLACEHOLDER}
+      - APP_VERIFICATION_TOKEN=${APP_VERIFICATION_TOKEN:-PLACEHOLDER}
+      - CHATOPERA_CLIENT_ID=${CHATOPERA_CLIENT_ID:-PLACEHOLDER}
+      - CHATOPERA_SECRET=${CHATOPERA_SECRET:-PLACEHOLDER}
