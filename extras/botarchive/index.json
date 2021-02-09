@@ -19,6 +19,8 @@
   "config": {
     "GITLAB_URL": "https://gitlab.chatopera.com",
     "PRIVATE_TOKEN": "YOUR_PRIVATE_TOKEN",
-    "VALID_PROJECTS": "https://gitee.com/chatopera_admin/metadata/raw/master/gitlab_projects.json"
+    "VALID_PROJECTS": "https://gitee.com/chatopera_admin/metadata/raw/master/gitlab_projects.json",
+    "HEWEATHER_URL": "https://free-api.heweather.com/v5",
+    "HEWEATHER_KEY": "YOUR_TOKEN_GET_FROM https://dev.qweather.com/"
   }
 }

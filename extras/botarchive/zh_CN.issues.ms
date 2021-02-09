@@ -21,3 +21,6 @@
 
 + reopen issue (*)
 - ^reopenIssue(<cap1>)
+
++ search issue (*)
+- ^searchIssues(<cap1>) 
