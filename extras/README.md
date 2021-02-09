@@ -1,10 +1,13 @@
 # BOT
+低代码或无代码方式开发 BOT 对话！
 
 机器人对话管理 with [Chatopera 机器人平台](https://bot.chatopera.com/)，创建机器人并上传多轮对话 [releases/FeishuDevops.zh_CN.1.0.0.c66](./releases/FeishuDevops.zh_CN.1.0.0.c66)。
 
 ## 设置环境变量
 
-![](../assets/14.png)
+<p align="center">
+    <img src="../assets/14.png" width = "500" />
+</p>
 
 ### GITLAB_URL
 

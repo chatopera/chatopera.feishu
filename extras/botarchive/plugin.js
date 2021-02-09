@@ -2,6 +2,30 @@ const GITLAB_URL = config["GITLAB_URL"];
 const PRIVATE_TOKEN = config["PRIVATE_TOKEN"];
 const VALID_PROJECTS_URL = config["VALID_PROJECTS"];
 
+//one line solution
+const shuffle = (array) => array.sort(() => Math.random() - 0.5);
+
+exports.get_random = async function (elements) {
+  if (elements) {
+    let els = elements.split(" ");
+
+    if (els.length == 1) {
+      return {
+        text:
+          "元素长度大于1，例如发送 `shuf 张三 李四 王五 ...`，不同元素使用空格间隔",
+      };
+    }
+
+    return {
+      text: shuffle(els).join(" "),
+    };
+  } else {
+    return {
+      text: "发送 `shuf 张三 李四 王五 ...`，不同元素使用空格间隔",
+    };
+  }
+};
+
 const fetchValidProjects = async function () {
   debug("fetchValidProjects: fetch from remote url %s ...", VALID_PROJECTS_URL);
   let resp = await http.get(VALID_PROJECTS_URL);
@@ -114,8 +138,8 @@ exports.closeIssue = async function (cap1) {
 /**
  * 创建 Issue
  */
-exports.createIssue = async function (cap1) {
-  debug("createIssue %s", cap1);
+exports.createIssue = async function (cap1, labels) {
+  debug("createIssue %s, labels %s", cap1, labels);
 
   let sp = cap1.split(" ");
 
@@ -136,6 +160,9 @@ exports.createIssue = async function (cap1) {
     )}&description=${encodeURIComponent(
       "## Issue created with\n[chatopera/chatopera.feishu](https://github.com/chatopera/chatopera.feishu)"
     )}`;
+    if (labels) {
+      req_url = req_url + `&labels=${labels}`;
+    }
     debug("req_url %s", req_url);
 
     let response = await http.post(req_url, null, {
@@ -174,7 +201,7 @@ exports.get_help = async function () {
                 },
                 {
                   tag: "text",
-                  text: "create issue 项目 标题\n",
+                  text: "create [issue|bug|task|story] 项目 标题\n",
                 },
                 {
                   tag: "text",
@@ -183,6 +210,10 @@ exports.get_help = async function () {
                 {
                   tag: "text",
                   text: "reopen issue 项目 #序号\n",
+                },
+                {
+                  tag: "text",
+                  text: "shuf value1 value2 [...]\n",
                 },
                 {
                   tag: "text",
@@ -196,6 +227,16 @@ exports.get_help = async function () {
                   tag: "text",
                   text:
                     "   create issue cskefu 优化春松客服 ME 渠道管理创建表单\n",
+                },
+                {
+                  tag: "text",
+                  text:
+                    "   create story cskefu 优化春松客服 ME 渠道管理创建表单\n",
+                },
+                {
+                  tag: "text",
+                  text:
+                    "   create bug cskefu 优化春松客服 ME 渠道管理创建表单\n",
                 },
                 {
                   tag: "text",

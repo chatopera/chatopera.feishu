@@ -8,7 +8,7 @@
 
 + _greetings_
 - {keep} 你好！
-- 欢迎惠顾！
+- Hello
 
-+ help
++ (help|帮助)
 - ^get_help()

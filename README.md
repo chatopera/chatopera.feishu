@@ -5,7 +5,7 @@
 通过 Feishu 开放平台和 Chatopera 机器人平台上线企业聊天机器人服务。
 
 - Feishu：高效率的协作办公软件
-- Chatopera 机器人平台：定制智能对话机器人的开发者平台
+- Chatopera 机器人平台：定制智能对话机器人的开发者平台，低代码或无代码方式开发 BOT 对话
 
 ## 示例程序
 
@@ -158,7 +158,13 @@ ngrok http 8000
 
 创建新版本，并提交，此时因为企业内部审核，会自动通过。
 
-在飞书客户端，Workspace 中搜索并激活机器人，进入对话界面。
+在飞书客户端，Workspace 中搜索并激活机器人。
+
+<p align="center">
+    <img src="./assets/16.png" width = "500" />
+</p>
+
+进入对话界面。
 
 <p align="center">
     <img src="./assets/7.png" width = "500" />

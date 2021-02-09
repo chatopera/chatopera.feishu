@@ -4,6 +4,15 @@
 + list projects
 - ^getValidProjects()
 
++ create bug (*)
+- ^createIssue(<cap1>,'bug')
+
++ create story (*)
+- ^createIssue(<cap1>,'userstory')
+
++ create task (*)
+- ^createIssue(<cap1>,'task')
+
 + create issue (*)
 - ^createIssue(<cap1>)
 
