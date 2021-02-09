@@ -10,12 +10,12 @@ export PATH=/opt/miniconda3/envs/venv-py3/bin:$PATH
 
 # functions
 
-# main 
+# main
 [ -z "${BASH_SOURCE[0]}" -o "${BASH_SOURCE[0]}" = "$0" ] || return
 cd $baseDir
 if [ -f .env ]; then
     source .env
-    python echo_bot.py
+    python bot.py
 else
     echo "$baseDir/.env not found, copy a sample with $baseDir/sample.env, customize variables with doc https://github.com/chatopera/chatopera.feishu" 
     exit 1

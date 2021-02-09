@@ -19,7 +19,7 @@ fi
 
 cd $baseDir
 if [ -f .env ]; then
-    source .env; node_modules/nodemon/bin/nodemon.js --exec python3 echo_bot.py
+    source .env; node_modules/nodemon/bin/nodemon.js --exec python3 bot.py
 else
     echo "$baseDir/.env not found, copy a sample with $baseDir/sample.env, customize variables with doc https://github.com/chatopera/chatopera.feishu"
     exit 1
