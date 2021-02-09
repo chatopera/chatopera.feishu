@@ -10,6 +10,10 @@
     {
       "name": "issues",
       "enabled": true
+    },
+    {
+      "name": "utils",
+      "enabled": true
     }
   ],
   "config": {
