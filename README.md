@@ -2,10 +2,23 @@
 
 # Chatopera 飞书 Custom App
 
+[https://github.com/chatopera/chatopera.feishu](https://github.com/chatopera/chatopera.feishu)
+
 通过 Feishu 开放平台和 Chatopera 机器人平台上线企业聊天机器人服务。
 
 - Feishu：高效率的协作办公软件
 - Chatopera 机器人平台：定制智能对话机器人的开发者平台，低代码或无代码方式开发 BOT 对话
+
+
+## 掌握 BOT 应用开发
+
+Feishu 开发者快速入门 Custom App BOT 服务开发！
+
+[Feishu(飞书) 聊天机器人应用（1/3）- 开发快速入门](https://chatopera.blog.csdn.net/article/details/111935461)
+
+[Feishu(飞书) 聊天机器人应用（2/3）- 定制对话，实现知识库、信息查询、意图识别、多轮对话](https://chatopera.blog.csdn.net/article/details/113720749)
+
+[Feishu(飞书) 聊天机器人应用（3/3）- DevOps机器人助手，管理 GitLab Issues，BOT 开源示例程序](https://chatopera.blog.csdn.net/article/details/113768538)
 
 ## 示例程序
 
