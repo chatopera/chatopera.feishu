@@ -226,7 +226,7 @@ Powered by [Chatopera 机器人平台](https://bot.chatopera.com/)。
 
 [Chatopera 文档中心](https://docs.chatopera.com/)
 
-[Create Tickets](https://github.com/chatopera/chatopera.feishu/issues)
+[Create Tickets](https://docs.chatopera.com/products/chatbot-platform/support.html)
 
 ## References
 
