@@ -1,7 +1,7 @@
 使用 Chatopera 和飞书集成 BOT 应用有两种形式：
 
 * Chatopera 飞书应用: 快速使用，配置为主，和飞书应用控制台集成，在飞书官方应用商店使用
-* Chatopera 飞书 Custom App： 面向开发者友好
+* Chatopera 飞书 Custom App： 面向开发者友好（即项目 https://github.com/chatopera/chatopera.feishu）
 
 # Chatopera 飞书应用
 
@@ -9,12 +9,11 @@
 
 ![image_20230213151245](https://user-images.githubusercontent.com/3538629/218393833-a4bcddb2-fc3e-493b-a752-350149babe0a.png)
 
-
-<img src="./assets/12.png" width = "600" />
-
 # Chatopera 飞书 Custom App
 
 [https://github.com/chatopera/chatopera.feishu](https://github.com/chatopera/chatopera.feishu)
+
+<img src="./assets/12.png" width = "600" />
 
 通过 Feishu 开放平台和 Chatopera 机器人平台上线企业聊天机器人服务。
 
